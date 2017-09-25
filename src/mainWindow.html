@@ -13,12 +13,25 @@
             const {ipcRenderer} = electron;
             const ul = document.querySelector('ul');
 
+            // Catch add item
             ipcRenderer.on('item:add', function(e, item) {
                 const li = document.createElement('li');
                 const itemText = document.createTextNode(item);
                 li.appendChild(itemText);
                 ul.appendChild(li);
             });
+
+            // Clear items
+            ipcRenderer.on('item:clear', function() {
+                ul.innerHTML = '';
+            });
+
+            // Remove item
+            ul.addEventListener('dbclick', removeItem);
+
+            function removeItem(e) {
+                e.target.remove();
+            }
         </script>
     </body>
 </html>
